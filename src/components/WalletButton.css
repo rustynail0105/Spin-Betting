@@ -1,0 +1,11 @@
+.wallet-adapter-button-trigger {
+    background: linear-gradient(180deg, #6579FE 0%, #3A54FF 100%) !important;
+}
+
+.wallet-adapter-button {
+    color: #FFF !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    border-radius: 8px !important;
+}
