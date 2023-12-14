@@ -5,17 +5,57 @@ import { Wheel } from "react-custom-roulette";
 import TOKENLOGO from "assets/svg/token_logo.svg";
 import INFO from "assets/svg/information-circle.svg";
 import HISTORY from "assets/svg/calendar.svg";
+import Ellipse129 from "assets/img/ellipse_129.png";
+import RIGHTSTARS from "assets/svg/right_stars.svg";
+import LEFTSTARS from "assets/svg/left_stars.svg";
+import POINTER from "assets/svg/pointer.svg";
+import { PointerProps } from "../Interface/PointerProps";
 import "./Home.css";
+import { ImageProps } from "../Interface/ImageProps";
 
 enum Status {
   DEPOSITE,
   SPIN,
 }
 
+const g_pointerProps: PointerProps = {
+  src: POINTER,
+  style: {
+    position: "absolute",
+    top: "50%",
+    transform: "translate(-30%, -50%)",
+    left: 0,
+  },
+};
+
+const g_ellipse129: ImageProps = {
+  uri: Ellipse129,
+};
+
+// const g_pointerProps = new PointerIn{
+//   src: POINTER,
+//   style: {
+//     position: "absolute";
+//     z-index: 5;
+
+//   }
+// };
+
 const data = [
-  { option: "0", style: { backgroundColor: "green", textColor: "black" } },
-  { option: "1", style: { backgroundColor: "white" } },
-  { option: "2" },
+  {
+    option: "0",
+    style: { backgroundColor: "white", textColor: "black" },
+    image: g_ellipse129,
+  },
+  { option: "1", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "2", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "3", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "4", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "5", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "6", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "7", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "8", style: { backgroundColor: "white", textColor: "black" } },
+  { option: "9", style: { backgroundColor: "white", textColor: "black" } },
 ];
 
 const Home = () => {
@@ -42,7 +82,12 @@ const Home = () => {
     /**
      * spin wheel
      */
-    setPrizeNumber(3);
+    if (!mustSpin) {
+      const newPrizeNumber = Math.floor(Math.random() * data.length);
+      console.log("prize number is :", newPrizeNumber);
+      setPrizeNumber(newPrizeNumber);
+      setMustSpin(true);
+    }
   };
 
   return (
@@ -65,18 +110,32 @@ const Home = () => {
         TOKE WHEEL
       </Typography>
       <Grid container justifyContent={"center"}>
+        <Grid
+          sx={{
+            transform: "translateX(40%)",
+          }}
+        >
+          <img src={LEFTSTARS} alt="LEFTSTARS" />
+        </Grid>
         <Wheel
           mustStartSpinning={mustSpin}
-          // prizeNumber={prizeNumber}
-          prizeNumber={0}
+          prizeNumber={prizeNumber}
           data={data}
           backgroundColors={["#3e3e3e", "#df3428"]}
           textColors={["#ffffff"]}
           spinDuration={1.0}
+          pointerProps={g_pointerProps}
           onStopSpinning={() => {
             setMustSpin(false);
           }}
         />
+        <Grid
+          sx={{
+            transform: "translateX(-30%)",
+          }}
+        >
+          <img src={RIGHTSTARS} alt="RIGHTSTARS" />
+        </Grid>
       </Grid>
       <Grid container justifyContent={"center"}>
         <Typography
