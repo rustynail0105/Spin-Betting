@@ -1,5 +1,6 @@
 .wallet-adapter-button-trigger {
-    background: linear-gradient(180deg, #6579FE 0%, #3A54FF 100%) !important;
+    background: var(--Prime-Gradient, linear-gradient(180deg, #00B0F8 0%, #00ADEA 100%)) !important;
+    box-shadow: 0px -0.5px 0px 0px #0090C6 inset, 0px 1px 0px 0px #2CC3FF inset !important;
 }
 
 .wallet-adapter-button {

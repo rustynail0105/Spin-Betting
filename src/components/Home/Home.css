@@ -4,3 +4,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.deposite-amount {
+    background-color: transparent;
+    height: 30px;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.deposite-amount:active {
+    border: none;
+}

@@ -48,7 +48,8 @@ function App() {
           <BalanceContext.Provider
             value={{ balance: balance, setBalance: setBalance }}
           >
-            <Grid maxWidth={"1600px"}>
+            {/* <Grid maxWidth={"1600px"} margin={"auto"}> */}
+            <Grid margin={"auto"}>
               <Header />
               <Home />
             </Grid>

@@ -17,6 +17,7 @@
   "devDependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/joy": "^5.0.0-beta.18",
     "@mui/material": "^5.14.20",
     "@solana/wallet-adapter-react-ui": "^0.9.34",
     "@solana/wallet-adapter-wallets": "^0.19.24",
@@ -30,6 +31,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "prop-types": "^15.8.1",
+    "react-custom-roulette": "^1.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
   }
