@@ -1,15 +1,20 @@
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import WalletButton from "../WalletButton";
+import WalletButton from "components/WalletButton";
 import logo from "assets/svg/logo.svg";
 
 const Header = () => {
   return (
     <Grid
+      maxWidth={"1600px"}
+      marginX={"auto"}
       container
-      paddingX={{ xs: "100px" }}
-      paddingY={{ xs: "40px" }}
+      flexDirection={{ xs: "column", sm: "row" }}
+      gap={2}
       justifyContent={"space-between"}
+      alignItems={"center"}
+      paddingX={{ xs: "30px", sm: "80px" }}
+      paddingY={{ xs: "40px" }}
     >
       <Grid container gap={1} width={"fit-content"} alignItems={"center"}>
         <img src={logo} alt="logo" />

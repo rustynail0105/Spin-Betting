@@ -1,4 +1,4 @@
-import { useMemo, useContext, createContext } from "react";
+import { useMemo, useState } from "react";
 import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
@@ -19,14 +19,13 @@ import "./App.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import Home from "./components/Home/Home";
 import { Grid } from "@mui/material";
-
-export const BalanceContext = createContext({
-  balance: 0,
-  setBalance: () => {},
-});
+import { BalanceContext } from "./contexts/useBalanceContext";
+import { StatusContext } from "./contexts/useStatusContext";
+import { Status } from "./constants/Constants";
 
 function App() {
-  const { balance, setBalance } = useContext(BalanceContext);
+  const [balance, setBalance] = useState<number>(0);
+  const [status, mappingStatusTo] = useState<Status>(Status.BEFORE_DEPOSITE);
   const solNetwork = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(solNetwork), [solNetwork]);
   /**
@@ -45,15 +44,19 @@ function App() {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <BalanceContext.Provider
-            value={{ balance: balance, setBalance: setBalance }}
+          <StatusContext.Provider
+            value={{ status: status, mappingStatusTo: mappingStatusTo }}
           >
-            {/* <Grid maxWidth={"1600px"} margin={"auto"}> */}
-            <Grid margin={"auto"}>
-              <Header />
-              <Home />
-            </Grid>
-          </BalanceContext.Provider>
+            <BalanceContext.Provider
+              value={{ balance: balance, setBalance: setBalance }}
+            >
+              {/* <Grid maxWidth={"1600px"} margin={"auto"}> */}
+              <Grid>
+                <Header />
+                <Home />
+              </Grid>
+            </BalanceContext.Provider>
+          </StatusContext.Provider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

@@ -6,7 +6,9 @@
 }
 
 .deposite-amount {
+    display: flex;
     background-color: transparent;
+    width: 50%;
     height: 30px;
     border: none;
     font-size: 20px;
