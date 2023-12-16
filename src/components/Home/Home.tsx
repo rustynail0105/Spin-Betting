@@ -14,14 +14,13 @@ import HISTORY from "assets/svg/calendar.svg";
 import DOUBLE from "assets/svg/double.svg";
 import DRAW from "assets/svg/draw.svg";
 import BURN from "assets/svg/burn.svg";
-import DEPOSIT from "assets/svg/deposit.svg";
+import DEPOSITE from "assets/svg/deposit.svg";
 import CROSS from "assets/svg/cross.svg";
 import Roulette from "../Roulette/Roulette";
 import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 
 interface BettingHistory {
-  key: string;
   image: string;
   bettingResult: string;
   bettingAmount: string;
@@ -36,27 +35,33 @@ const NOTENOUGHBALANCE = "Not Enough Balance";
 
 const bettingHistory: BettingHistory[] = [
   {
-    key: "1",
     image: DOUBLE,
     bettingResult: "Win Double Prize",
     bettingAmount: "125",
     prizeAmount: "250",
     date: "Just now",
   },
-  // {
-  //   image: DRAW,
-  //   bettingResult: "Draw",
-  //   bettingAmount: "125",
-  //   prizeAmount: "250",
-  //   date: "2m ago",
-  // },
-  // {
-  //   image: BURN,
-  //   bettingResult: "Burn",
-  //   bettingAmount: "125",
-  //   prizeAmount: "250",
-  //   date: "10m ago",
-  // },
+  {
+    image: DRAW,
+    bettingResult: "Draw",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "2m ago",
+  },
+  {
+    image: BURN,
+    bettingResult: "Burn",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "10m ago",
+  },
+  {
+    image: DEPOSITE,
+    bettingResult: "DEPOSITE",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "10m ago",
+  },
 ];
 
 const Home = () => {
@@ -371,7 +376,7 @@ const Home = () => {
                   <Typography
                     sx={{
                       color: "#FFF",
-                      fontFamily: "Rubix",
+                      fontFamily: "Acme",
                       fontSize: "16px",
                       fontStyle: "normal",
                       lineHeight: "24px",
@@ -383,29 +388,34 @@ const Home = () => {
                   <Typography
                     sx={{
                       color: "#FFF",
-                      fontFamily: "Rubix",
+                      fontFamily: "Acme",
                       fontSize: "16px",
                       fontStyle: "normal",
                       lineHeight: "24px",
                     }}
                   >
                     How the logic we use on the platform:
-                    <List
-                      sx={{
-                        listStyle: "disc",
-                        paddingLeft: "24px",
-                      }}
-                    >
-                      <li key={"draw"}>2 for DRAW (25% odds)</li>
-                      <li key={"double"}>2 for DOUBLE (25% odds)</li>
-                      <li key={"lose"}>2 for LOSE (25% odds)</li>
-                      <li key={"burn"}>2 for BURN (25% odds)</li>
-                    </List>
                   </Typography>
+                  <List
+                    sx={{
+                      color: "#FFF",
+                      fontFamily: "Acme",
+                      fontSize: "16px",
+                      fontStyle: "normal",
+                      lineHeight: "24px",
+                      listStyle: "disc",
+                      paddingLeft: "24px",
+                    }}
+                  >
+                    <li key={"draw"}>2 for DRAW (25% odds)</li>
+                    <li key={"double"}>2 for DOUBLE (25% odds)</li>
+                    <li key={"lose"}>2 for LOSE (25% odds)</li>
+                    <li key={"burn"}>2 for BURN (25% odds)</li>
+                  </List>
                   <Typography
                     sx={{
                       color: "#FFF",
-                      fontFamily: "Rubix",
+                      fontFamily: "Acme",
                       fontSize: "16px",
                       fontStyle: "normal",
                       lineHeight: "24px",
@@ -508,9 +518,9 @@ const Home = () => {
                     gap: "12px",
                   }}
                 >
-                  {bettingHistory.map((history) => {
+                  {bettingHistory.map((history, index) => {
                     return (
-                      <div key={history.key}>
+                      <div key={index}>
                         <Grid
                           container
                           justifyContent={"space-between"}
