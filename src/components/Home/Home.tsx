@@ -1,23 +1,152 @@
 import { useEffect, useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { Grid, Typography } from "@mui/material";
+import { Grid, List, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
 import { ToastContainer, toast } from "react-toastify";
 import { useBalanceContext } from "src/contexts/useBalanceContext";
 import { useStatusContext } from "src/contexts/useStatusContext";
 import { Status } from "src/constants/Constants";
 import TOKENLOGO from "assets/svg/token_logo.svg";
-// import INFO from "assets/svg/information-circle.svg";
-// import HISTORY from "assets/svg/calendar.svg";
+import INFO from "assets/svg/information-circle.svg";
+import HISTORY from "assets/svg/calendar.svg";
+import DOUBLE from "assets/svg/double.svg";
+import DRAW from "assets/svg/draw.svg";
+import BURN from "assets/svg/burn.svg";
+import DEPOSIT from "assets/svg/deposit.svg";
+import CROSS from "assets/svg/cross.svg";
 import Roulette from "../Roulette/Roulette";
-import "./Home.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./Home.css";
+
+interface BettingHistory {
+  image: string;
+  bettingResult: string;
+  bettingAmount: string;
+  prizeAmount: string;
+  date: string;
+}
 
 const PATTERN = /^[0-9]*[.,]?[0-9]*$/;
 const PLEASECONNECTWALLET = "Wallet is not connected";
 const INPUTDEPOSITEAMOUNT = "Input Deposite Amount";
 const NOTENOUGHBALANCE = "Not Enough Balance";
+
+const bettingHistory: BettingHistory[] = [
+  {
+    image: DOUBLE,
+    bettingResult: "Win Double Prize",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "Just now",
+  },
+  {
+    image: DRAW,
+    bettingResult: "Draw",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "2m ago",
+  },
+  {
+    image: BURN,
+    bettingResult: "Burn",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "10m ago",
+  },
+  {
+    image: DEPOSIT,
+    bettingResult: "Deposite",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "1h ago",
+  },
+  {
+    image: DOUBLE,
+    bettingResult: "Win Double Prize",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "Just now",
+  },
+  {
+    image: DRAW,
+    bettingResult: "Draw",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "2m ago",
+  },
+  {
+    image: BURN,
+    bettingResult: "Burn",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "10m ago",
+  },
+  {
+    image: DEPOSIT,
+    bettingResult: "Deposite",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "1h ago",
+  },
+  {
+    image: DOUBLE,
+    bettingResult: "Win Double Prize",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "Just now",
+  },
+  {
+    image: DRAW,
+    bettingResult: "Draw",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "2m ago",
+  },
+  {
+    image: BURN,
+    bettingResult: "Burn",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "10m ago",
+  },
+  {
+    image: DEPOSIT,
+    bettingResult: "Deposite",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "1h ago",
+  },
+  {
+    image: DOUBLE,
+    bettingResult: "Win Double Prize",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "Just now",
+  },
+  {
+    image: DRAW,
+    bettingResult: "Draw",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "2m ago",
+  },
+  {
+    image: BURN,
+    bettingResult: "Burn",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "10m ago",
+  },
+  {
+    image: DEPOSIT,
+    bettingResult: "Deposite",
+    bettingAmount: "125",
+    prizeAmount: "250",
+    date: "1h ago",
+  },
+];
 
 const Home = () => {
   const wallet = useWallet();
@@ -26,6 +155,8 @@ const Home = () => {
   const { status, mappingStatusTo } = useStatusContext();
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
   const [tokenAmount, setTokenAmount] = useState<string>("");
+  const [helpAnchor, setHelpAnchor] = useState<boolean>(false);
+  const [historyAnchor, setHistoryAnchor] = useState<boolean>(false);
   /**
    * set deposite token amount
    *
@@ -89,6 +220,16 @@ const Home = () => {
     /**start api call for spin */
     /**end api call for spin */
     setTokenAmount("");
+  };
+
+  const showHelp = () => {
+    console.log("Help");
+    setHelpAnchor(!helpAnchor);
+  };
+
+  const showHistory = () => {
+    console.log("History");
+    setHistoryAnchor(!historyAnchor);
   };
 
   useEffect(() => {
@@ -232,12 +373,12 @@ const Home = () => {
             </Typography>
           </Button>
         </Grid>
-        {/* <Grid
+        <Grid
           position={"absolute"}
           right={"0px"}
-          top={"50%"}
+          top={{ xs: "10%", md: "50%" }}
           sx={{
-            transform: "translatey(-50%)",
+            transform: "translateY(-50%)",
           }}
         >
           <Grid
@@ -247,7 +388,6 @@ const Home = () => {
               "&:hover": {
                 cursor: "pointer",
               },
-              width: "fit-content",
               display: "flex",
               padding: "12px 24px 12px 12px",
               alignItems: "cente",
@@ -257,7 +397,115 @@ const Home = () => {
               boxShadow:
                 "0px -2.5px 0px 0px #141A43 inset, 0px 2px 0px 0px #3A427B inset, -2px 12px 16px 0px rgba(0, 0, 0, 0.16)",
             }}
+            onClick={showHelp}
           >
+            <Drawer
+              anchor={"right"}
+              open={helpAnchor}
+              onClose={() => setHelpAnchor(!helpAnchor)}
+            >
+              <Grid
+                sx={{
+                  background: "#091042",
+                  width: { xs: "100%", sm: "500px" },
+                  height: "100vh",
+                }}
+              >
+                <Grid
+                  container
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                  sx={{
+                    padding: "24px",
+                    gap: "8px",
+                    borderBottom: "1px solid #202754",
+                  }}
+                >
+                  <Grid container gap={"10px"} width={"fit-content"}>
+                    <img src={INFO} alt="INFO" />
+                    <Typography
+                      color={"#FFF"}
+                      fontFamily={"Acme"}
+                      fontSize={"16px"}
+                      fontStyle={"normal"}
+                      fontWeight={400}
+                      lineHeight={"20px"}
+                      textAlign={"center"}
+                    >
+                      How fair is the spin?
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    container
+                    alignItems={"center"}
+                    width={"fit-content"}
+                    sx={{
+                      "&:hover": {
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <img src={CROSS} alt="CROSS" />
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  flexDirection={"column"}
+                  sx={{
+                    paddingX: "24px",
+                    paddingY: "16px",
+                    gap: "12px",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "#FFF",
+                      fontFamily: "Rubix",
+                      fontSize: "16px",
+                      fontStyle: "normal",
+                      lineHeight: "24px",
+                    }}
+                  >
+                    Let’s us explain what makes out platform using a fair play
+                    policy for you in this platform.
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#FFF",
+                      fontFamily: "Rubix",
+                      fontSize: "16px",
+                      fontStyle: "normal",
+                      lineHeight: "24px",
+                    }}
+                  >
+                    How the logic we use on the platform:
+                    <List
+                      sx={{
+                        listStyle: "disc",
+                        paddingLeft: "24px",
+                      }}
+                    >
+                      <li>2 for DRAW (25% odds)</li>
+                      <li>2 for DOUBLE (25% odds)</li>
+                      <li>2 for LOSE (25% odds)</li>
+                      <li>2 for BURN (25% odds)</li>
+                    </List>
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#FFF",
+                      fontFamily: "Rubix",
+                      fontSize: "16px",
+                      fontStyle: "normal",
+                      lineHeight: "24px",
+                    }}
+                  >
+                    Let’s us explain what makes out platform using a fair play
+                    policy for you in this platform.
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Drawer>
             <img src={INFO} alt="INFO" />
             <Typography
               color={"#FFF"}
@@ -267,6 +515,7 @@ const Home = () => {
               fontWeight={400}
               lineHeight={"20px"}
               textAlign={"center"}
+              display={{ xs: "none", md: "block" }}
             >
               How fair is the spin?
             </Typography>
@@ -278,7 +527,6 @@ const Home = () => {
                 cursor: "pointer",
               },
               float: "right",
-              width: "fit-content",
               display: "flex",
               padding: "12px 24px 12px 12px",
               alignItems: "cente",
@@ -288,7 +536,108 @@ const Home = () => {
               boxShadow:
                 "0px -2.5px 0px 0px #141A43 inset, 0px 2px 0px 0px #3A427B inset, -2px 12px 16px 0px rgba(0, 0, 0, 0.16)",
             }}
+            onClick={showHistory}
           >
+            <Drawer
+              anchor={"right"}
+              open={historyAnchor}
+              onClose={() => setHelpAnchor(!historyAnchor)}
+            >
+              <Grid
+                sx={{
+                  background: "#091042",
+                  width: { xs: "100%", sm: "500px" },
+                  height: "100vh",
+                  overflowY: "auto",
+                }}
+              >
+                <Grid
+                  container
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                  sx={{
+                    padding: "24px",
+                    gap: "8px",
+                    borderBottom: "1px solid #202754",
+                  }}
+                >
+                  <Grid container gap={"10px"} width={"fit-content"}>
+                    <img src={HISTORY} alt="HISTORY" />
+                    <Typography
+                      color={"#FFF"}
+                      fontFamily={"Acme"}
+                      fontSize={"16px"}
+                      fontStyle={"normal"}
+                      fontWeight={400}
+                      lineHeight={"20px"}
+                      textAlign={"center"}
+                    >
+                      Betting History
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    container
+                    alignItems={"center"}
+                    width={"fit-content"}
+                    sx={{
+                      "&:hover": {
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <img src={CROSS} alt="CROSS" />
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  flexDirection={"column"}
+                  sx={{
+                    paddingX: "24px",
+                    paddingY: "12px",
+                    gap: "12px",
+                  }}
+                >
+                  {bettingHistory.map((history) => {
+                    return (
+                      <>
+                        <Grid
+                          container
+                          justifyContent={"space-between"}
+                          alignItems={"center"}
+                          sx={{
+                            gap: "14px",
+                          }}
+                        >
+                          <img src={history.image} alt="image" />
+                          <Typography
+                            sx={{
+                              color: "#FFF",
+                              fontFamily: "Rubik",
+                              fontSize: "16px",
+                              fontStyle: "normal",
+                              fontWeight: 500,
+                              lineHeight: "24px",
+                            }}
+                          >
+                            {history.bettingResult}
+                            <br />
+                            <span className="amount">Amount: </span>
+                            {history.bettingAmount} $TOKE
+                          </Typography>
+                          <Typography>
+                            <span className="prizeAmount">
+                              {history.prizeAmount} $TOKE
+                            </span>
+                            <br />
+                            <span className="date">{history.date}</span>
+                          </Typography>
+                        </Grid>
+                      </>
+                    );
+                  })}
+                </Grid>
+              </Grid>
+            </Drawer>
             <img src={HISTORY} alt="HISTORY" />
             <Typography
               color={"#FFF"}
@@ -298,11 +647,12 @@ const Home = () => {
               fontWeight={400}
               lineHeight={"20px"}
               textAlign={"center"}
+              display={{ xs: "none", md: "block" }}
             >
               History
             </Typography>
           </Grid>
-        </Grid> */}
+        </Grid>
       </Grid>
       <ToastContainer />
     </>

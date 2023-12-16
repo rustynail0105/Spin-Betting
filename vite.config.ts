@@ -16,4 +16,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ["**/*.svg"],
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+  },
 });

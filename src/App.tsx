@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
@@ -21,11 +21,13 @@ import Home from "./components/Home/Home";
 import { Grid } from "@mui/material";
 import { BalanceContext } from "./contexts/useBalanceContext";
 import { StatusContext } from "./contexts/useStatusContext";
+import { PrizeNumberContext } from "./contexts/usePrizeNumberContext";
 import { Status } from "./constants/Constants";
 
 function App() {
   const [balance, setBalance] = useState<number>(0);
   const [status, mappingStatusTo] = useState<Status>(Status.BEFORE_DEPOSITE);
+  const [prizeNumber, setPrizeNumber] = useState<number>(0);
   const solNetwork = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(solNetwork), [solNetwork]);
   /**
@@ -40,6 +42,10 @@ function App() {
     ],
     [solNetwork]
   );
+
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
@@ -50,11 +56,18 @@ function App() {
             <BalanceContext.Provider
               value={{ balance: balance, setBalance: setBalance }}
             >
-              {/* <Grid maxWidth={"1600px"} margin={"auto"}> */}
-              <Grid>
-                <Header />
-                <Home />
-              </Grid>
+              <PrizeNumberContext.Provider
+                value={{
+                  prizeNumber: prizeNumber,
+                  setPrizeNumber: setPrizeNumber,
+                }}
+              >
+                {/* <Grid maxWidth={"1600px"} margin={"auto"}> */}
+                <Grid>
+                  <Header />
+                  <Home />
+                </Grid>
+              </PrizeNumberContext.Provider>
             </BalanceContext.Provider>
           </StatusContext.Provider>
         </WalletModalProvider>

@@ -5,10 +5,14 @@ import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import DOUBLE from "assets/img/double.png";
+import BURN from "assets/img/burn.png";
+import DRAW from "assets/img/draw.png";
+import BOMB from "assets/img/bomb.png";
 import { Wheel } from "./components/Wheel";
 import { getRandomInt } from "./utils";
 import { Status } from "src/constants/Constants";
 import { useStatusContext } from "src/contexts/useStatusContext";
+import { usePrizeNumberContext } from "src/contexts/usePrizeNumberContext";
 import "./Roulette.css";
 
 const style = {
@@ -16,7 +20,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  bgcolor: "#12151E",
+  bgcolor: "#091042",
   maxWidth: "450px",
   height: "fit-content",
   display: "flex",
@@ -25,18 +29,17 @@ const style = {
   alignItems: "center",
   padding: "24px",
   borderRadius: "0px 0px 16px 16px",
-  borderColor: "#12151E",
+  borderColor: "#091042",
 };
 
 const Roulette = () => {
   const { status, mappingStatusTo } = useStatusContext();
-  const [couponNum, setCouponNum] = useState<number>(1);
+  const { prizeNumber, setPrizeNumber } = usePrizeNumberContext();
   const [mustSpin, setMustSpin] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [spinning, setSpinning] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const handleCollect = () => {
     setOpen(false);
     mappingStatusTo(Status.AFTER_SPIN);
@@ -51,9 +54,7 @@ const Roulette = () => {
   const onClick = () => {
     if (!spinning) {
       setSpinning(true);
-      const newCouponNum = getRandomInt(1, 9);
-      setCouponNum(newCouponNum);
-      console.log(newCouponNum);
+      setPrizeNumber(getRandomInt(1, 9));
       setMustSpin(true);
     }
   };
@@ -69,7 +70,7 @@ const Roulette = () => {
       <div className="wheelContainer">
         <Wheel
           mustStartSpinning={mustSpin}
-          prizeNumber={couponNum}
+          prizeNumber={prizeNumber}
           onStopSpinning={() => {
             setSpinning(false);
             setMustSpin(false);
@@ -77,7 +78,7 @@ const Roulette = () => {
           }}
         />
       </div>
-      <Modal keepMounted open={open} onClose={handleClose}>
+      <Modal keepMounted open={open} sx={{ background: "#090E33" }}>
         <Box sx={style}>
           <Typography
             color={"#FFF"}
@@ -88,10 +89,24 @@ const Roulette = () => {
             fontWeight={400}
             lineHeight={"37px"}
           >
-            Congratulations!!! You win Double Prize
+            {prizeNumber % 4 == 1
+              ? "Congratulations!!! You win Double Prize"
+              : prizeNumber % 4 == 2
+              ? "Good!!! You get a draw"
+              : prizeNumber % 4 == 3
+              ? "You got burn Good luck next time!"
+              : "You got bombed! better luck next time"}
           </Typography>
           <Grid>
-            <img src={DOUBLE} alt="double" />
+            {prizeNumber % 4 == 1 ? (
+              <img src={DOUBLE} alt="double" />
+            ) : prizeNumber % 4 == 2 ? (
+              <img src={DRAW} alt="DRAW" />
+            ) : prizeNumber % 4 == 3 ? (
+              <img src={BURN} alt="BURN" />
+            ) : (
+              <img src={BOMB} alt="BOMB" />
+            )}
           </Grid>
           <Grid container flexDirection={"column"} justifyContent={"flex-end"}>
             <Button
@@ -119,7 +134,7 @@ const Roulette = () => {
                 lineHeight={"24px"}
                 textAlign={"center"}
               >
-                Collect
+                {prizeNumber % 4 == 1 ? "Collect" : "Back"}
               </Typography>
             </Button>
           </Grid>
