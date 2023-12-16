@@ -1,9 +1,25 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // ...other config settings
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: {
+        global: "globalThis",
+      },
+      // Enable esbuild polyfill plugins
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+        }),
+      ],
+    },
+  },
   resolve: {
     alias: {
       src: resolve(__dirname, "./src"),
@@ -12,23 +28,11 @@ export default defineConfig({
       constants: resolve(__dirname, "./src/constants"),
     },
   },
-  define: {
-    "process.env": process.env,
-    global: {},
-    Buffer: ["buffer", "Buffer"],
-  },
   plugins: [react()],
-  optimizeDeps: {
-    include: ["**/*.svg"],
-  },
+  // optimizeDeps: {
+  //   include: ["**/*.svg"],
+  // },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          react: ["react", "react-dom"],
-        },
-      },
-    },
     chunkSizeWarningLimit: 1000,
   },
 });

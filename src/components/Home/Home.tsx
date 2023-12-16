@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 
 interface BettingHistory {
+  key: string;
   image: string;
   bettingResult: string;
   bettingAmount: string;
@@ -35,117 +36,27 @@ const NOTENOUGHBALANCE = "Not Enough Balance";
 
 const bettingHistory: BettingHistory[] = [
   {
+    key: "1",
     image: DOUBLE,
     bettingResult: "Win Double Prize",
     bettingAmount: "125",
     prizeAmount: "250",
     date: "Just now",
   },
-  {
-    image: DRAW,
-    bettingResult: "Draw",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "2m ago",
-  },
-  {
-    image: BURN,
-    bettingResult: "Burn",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "10m ago",
-  },
-  {
-    image: DEPOSIT,
-    bettingResult: "Deposite",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "1h ago",
-  },
-  {
-    image: DOUBLE,
-    bettingResult: "Win Double Prize",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "Just now",
-  },
-  {
-    image: DRAW,
-    bettingResult: "Draw",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "2m ago",
-  },
-  {
-    image: BURN,
-    bettingResult: "Burn",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "10m ago",
-  },
-  {
-    image: DEPOSIT,
-    bettingResult: "Deposite",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "1h ago",
-  },
-  {
-    image: DOUBLE,
-    bettingResult: "Win Double Prize",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "Just now",
-  },
-  {
-    image: DRAW,
-    bettingResult: "Draw",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "2m ago",
-  },
-  {
-    image: BURN,
-    bettingResult: "Burn",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "10m ago",
-  },
-  {
-    image: DEPOSIT,
-    bettingResult: "Deposite",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "1h ago",
-  },
-  {
-    image: DOUBLE,
-    bettingResult: "Win Double Prize",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "Just now",
-  },
-  {
-    image: DRAW,
-    bettingResult: "Draw",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "2m ago",
-  },
-  {
-    image: BURN,
-    bettingResult: "Burn",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "10m ago",
-  },
-  {
-    image: DEPOSIT,
-    bettingResult: "Deposite",
-    bettingAmount: "125",
-    prizeAmount: "250",
-    date: "1h ago",
-  },
+  // {
+  //   image: DRAW,
+  //   bettingResult: "Draw",
+  //   bettingAmount: "125",
+  //   prizeAmount: "250",
+  //   date: "2m ago",
+  // },
+  // {
+  //   image: BURN,
+  //   bettingResult: "Burn",
+  //   bettingAmount: "125",
+  //   prizeAmount: "250",
+  //   date: "10m ago",
+  // },
 ];
 
 const Home = () => {
@@ -485,10 +396,10 @@ const Home = () => {
                         paddingLeft: "24px",
                       }}
                     >
-                      <li>2 for DRAW (25% odds)</li>
-                      <li>2 for DOUBLE (25% odds)</li>
-                      <li>2 for LOSE (25% odds)</li>
-                      <li>2 for BURN (25% odds)</li>
+                      <li key={"draw"}>2 for DRAW (25% odds)</li>
+                      <li key={"double"}>2 for DOUBLE (25% odds)</li>
+                      <li key={"lose"}>2 for LOSE (25% odds)</li>
+                      <li key={"burn"}>2 for BURN (25% odds)</li>
                     </List>
                   </Typography>
                   <Typography
@@ -599,7 +510,7 @@ const Home = () => {
                 >
                   {bettingHistory.map((history) => {
                     return (
-                      <>
+                      <div key={history.key}>
                         <Grid
                           container
                           justifyContent={"space-between"}
@@ -632,7 +543,7 @@ const Home = () => {
                             <span className="date">{history.date}</span>
                           </Typography>
                         </Grid>
-                      </>
+                      </div>
                     );
                   })}
                 </Grid>

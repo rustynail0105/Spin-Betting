@@ -24,12 +24,12 @@ export const Wheel: React.FC<WheelProps> = ({
   prizeNumber,
   onStopSpinning,
 }) => {
-  const [startRotationDegrees, setStartRotationDegrees] = useState(0);
-  const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
-  const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
-  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
-  const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
-  const mustStopSpinning = useRef(false);
+  const [startrotationdegrees, setstartrotationdegrees] = useState<number>(0);
+  const [finalrotationdegrees, setfinalrotationdegrees] = useState<number>(0);
+  const [hasStartedSpinning, setHasStartedSpinning] = useState<boolean>(false);
+  const [hasStoppedSpinning, setHasStoppedSpinning] = useState<boolean>(false);
+  const [isCurrentlySpinning, setIsCurrentlySpinning] = useState<boolean>(false);
+  const mustStopSpinning = useRef<boolean>(false);
 
   const startSpinning = () => {
     setHasStartedSpinning(true);
@@ -49,18 +49,18 @@ export const Wheel: React.FC<WheelProps> = ({
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
       startSpinning();
-      const finalRotationDegreesCalculated = getRotationDegrees(
+      const finalrotationdegreesCalculated = getRotationDegrees(
         prizeNumber,
         20
       );
-      setFinalRotationDegrees(finalRotationDegreesCalculated);
+      setfinalrotationdegrees(finalrotationdegreesCalculated);
     }
   }, [mustStartSpinning]);
 
   useEffect(() => {
     if (hasStoppedSpinning) {
       setIsCurrentlySpinning(false);
-      setStartRotationDegrees(finalRotationDegrees);
+      setstartrotationdegrees(finalrotationdegrees);
     }
   }, [hasStoppedSpinning]);
 
@@ -80,11 +80,11 @@ export const Wheel: React.FC<WheelProps> = ({
       >
         <RotationContainer
           className={getRouletteClass()}
-          startSpinningTime={START_SPINNING_TIME}
-          continueSpinningTime={CONTINUE_SPINNING_TIME}
-          stopSpinningTime={STOP_SPINNING_TIME}
-          startRotationDegrees={startRotationDegrees}
-          finalRotationDegrees={finalRotationDegrees}
+          startspinningtime={START_SPINNING_TIME}
+          continuespinningtime={CONTINUE_SPINNING_TIME}
+          stopspinningtime={STOP_SPINNING_TIME}
+          startrotationdegrees={startrotationdegrees}
+          finalrotationdegrees={finalrotationdegrees}
         >
           <Grid display={{ xs: "block", sm: "none" }}>
             <img src={MOBILESPINBOARD} alt="wheel" />
