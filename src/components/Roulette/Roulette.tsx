@@ -13,7 +13,6 @@ import { getRandomInt } from "./utils";
 import { Status } from "src/constants/Constants";
 import { useStatusContext } from "src/contexts/useStatusContext";
 import { usePrizeNumberContext } from "src/contexts/usePrizeNumberContext";
-import "./Roulette.css";
 
 const style = {
   position: "absolute",

@@ -44,8 +44,8 @@ function App() {
   );
 
   useEffect(() => {
-    console.log(status);
-  }, [status]);
+    console.log(prizeNumber);
+  }, [prizeNumber]);
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
