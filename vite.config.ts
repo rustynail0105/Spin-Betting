@@ -22,6 +22,13 @@ export default defineConfig({
     include: ["**/*.svg"],
   },
   build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom"],
+        },
+      },
+    },
     chunkSizeWarningLimit: 1000,
   },
 });
