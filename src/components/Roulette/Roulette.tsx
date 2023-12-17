@@ -97,11 +97,11 @@ const Roulette = () => {
               : "You got bombed! better luck next time"}
           </Typography>
           <Grid>
-            {prizeNumber % 4 == 1 ? (
+            {prizeNumber % 4 === 1 ? (
               <img src={DOUBLE} alt="double" />
-            ) : prizeNumber % 4 == 2 ? (
+            ) : prizeNumber % 4 === 2 ? (
               <img src={DRAW} alt="DRAW" />
-            ) : prizeNumber % 4 == 3 ? (
+            ) : prizeNumber % 4 === 3 ? (
               <img src={BURN} alt="BURN" />
             ) : (
               <img src={BOMB} alt="BOMB" />

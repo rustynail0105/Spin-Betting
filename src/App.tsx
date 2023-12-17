@@ -42,10 +42,6 @@ function App() {
     ],
     [solNetwork]
   );
-
-  useEffect(() => {
-    console.log(prizeNumber);
-  }, [prizeNumber]);
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
